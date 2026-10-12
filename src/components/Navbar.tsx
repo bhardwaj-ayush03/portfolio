@@ -65,13 +65,13 @@ export default function Navbar() {
               href="#top"
               whileHover={{ rotate: -3, scale: 1.04 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-3"
+              className="flex min-w-0 items-center gap-3"
             >
-              <span className="grid h-11 w-11 place-items-center rounded-full border-[3px] border-ink bg-green font-bold">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-[3px] border-ink bg-green font-bold">
                 AB
               </span>
-              <span className="hidden leading-tight sm:block">
-                <span className="block font-bold">Ayush Bhardwaj</span>
+              <span className="block min-w-0 leading-tight">
+                <span className="block truncate font-bold">Ayush Bhardwaj</span>
                 <span className="font-serif block text-sm italic">AI/ML Engineer</span>
               </span>
             </motion.a>
@@ -106,7 +106,7 @@ export default function Navbar() {
             <motion.button
               whileTap={{ scale: 0.85, rotate: 90 }}
               onClick={() => setOpen(!open)}
-              className="grid h-11 w-11 place-items-center rounded-full border-[3px] border-ink bg-yellow md:hidden"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-[3px] border-ink bg-yellow md:hidden"
               aria-label="Toggle menu"
             >
               {open ? <X /> : <Menu />}

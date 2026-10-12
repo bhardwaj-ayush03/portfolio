@@ -16,8 +16,18 @@
   --font-hand: var(--font-caveat), cursive;
 }
 
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 7rem;
 }
 
 body {
@@ -26,7 +36,6 @@ body {
   background-size: 28px 28px;
   color: var(--color-ink);
   font-family: var(--font-sans);
-  overflow-x: hidden;
 }
 
 ::selection {

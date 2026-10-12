@@ -3,11 +3,13 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Mail, Phone, Briefcase, Terminal, ArrowUpRight, Copy, Check, ArrowUp } from "lucide-react";
 import { site } from "@/data/site";
+import { useCanDrag } from "@/lib/useCanDrag";
 import SectionTitle from "./SectionTitle";
 import Reveal from "./Reveal";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
+  const fine = useCanDrag();
 
   const rows = [
     { label: "Email", value: site.email, href: `mailto:${site.email}`, Icon: Mail, bg: "bg-pink" },
@@ -35,23 +37,23 @@ export default function Contact() {
             <span className="font-serif bg-yellow px-2 italic">something</span> together.
           </h3>
 
-          <div className="mt-8 grid gap-4">
+          <div className="mt-8 grid grid-cols-1 gap-4">
             {rows.map(({ label, value, href, Icon, bg }) => (
               <motion.a
                 key={label}
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
-                whileHover={{ x: 12, boxShadow: "8px 8px 0 #111" }}
+                whileHover={fine ? { x: 12, boxShadow: "8px 8px 0 #111" } : undefined}
                 whileTap={{ scale: 0.97 }}
-                className={`${bg} flex items-center gap-4 border-[3px] border-ink px-5 py-4 shadow-[4px_4px_0_#111]`}
+                className={`${bg} flex min-w-0 items-center gap-3 border-[3px] border-ink px-4 py-4 shadow-[4px_4px_0_#111] sm:gap-4 sm:px-5`}
               >
-                <Icon />
+                <Icon className="shrink-0" />
                 <div className="min-w-0 flex-1">
                   <div className="font-mono text-xs uppercase">{label}</div>
-                  <div className="truncate text-lg font-bold">{value}</div>
+                  <div className="break-all text-base font-bold sm:text-lg">{value}</div>
                 </div>
-                <ArrowUpRight />
+                <ArrowUpRight className="shrink-0" />
               </motion.a>
             ))}
           </div>
@@ -63,7 +65,7 @@ export default function Contact() {
         </div>
       </Reveal>
 
-      <footer className="font-mono mt-16 flex items-center justify-between border-t-4 border-ink pt-6 text-sm">
+      <footer className="font-mono mt-16 flex flex-wrap items-center justify-between gap-4 border-t-4 border-ink pt-6 text-sm">
         <span>© 2026 Ayush Bhardwaj · built with Next.js + Motion</span>
         <motion.a
           href="#top"
