@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+import { goTo } from "@/lib/scrollTo";
 
 const links = [
   { label: "About", href: "#about" },
@@ -63,6 +64,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between gap-4">
             <motion.a
               href="#top"
+              onClick={(e) => goTo(e, "#top", () => setOpen(false))}
               whileHover={{ rotate: -3, scale: 1.04 }}
               whileTap={{ scale: 0.95 }}
               className="flex min-w-0 items-center gap-3"
@@ -83,6 +85,7 @@ export default function Navbar() {
                 <motion.a
                   key={l.href}
                   href={l.href}
+                  onClick={(e) => goTo(e, l.href)}
                   whileHover={{ y: -3, rotate: -2 }}
                   whileTap={{ scale: 0.92 }}
                   className="rounded-full border-2 border-transparent px-4 py-2 font-bold transition-colors hover:border-ink hover:bg-yellow"
@@ -92,6 +95,7 @@ export default function Navbar() {
               ))}
               <motion.a
                 href="#contact"
+                onClick={(e) => goTo(e, "#contact")}
                 whileHover={{ scale: 1.06, rotate: 2 }}
                 whileTap={{ scale: 0.92 }}
                 className="ml-2 flex items-center gap-2 rounded-full border-[3px] border-ink bg-green px-4 py-2 font-bold shadow-[4px_4px_0_#111]"
@@ -126,7 +130,7 @@ export default function Navbar() {
                     <a
                       key={l.href}
                       href={l.href}
-                      onClick={() => setOpen(false)}
+                      onClick={(e) => goTo(e, l.href, () => setOpen(false))}
                       className="rounded-xl border-2 border-ink bg-paper px-4 py-3 font-bold active:bg-pink"
                     >
                       {l.label}

@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "motion/react";
+import { useCanDrag } from "@/lib/useCanDrag";
 import Reveal from "./Reveal";
 import SectionTitle from "./SectionTitle";
 
@@ -17,13 +18,15 @@ const stats = [
 ];
 
 export default function About() {
+  const canDrag = useCanDrag();
+
   return (
     <section id="about" className="mx-auto max-w-6xl px-6 py-24">
       <SectionTitle color="bg-yellow">About me</SectionTitle>
 
       <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
         <Reveal>
-          <div className="nb-card h-full p-8">
+          <div className="nb-card h-full p-6 sm:p-8">
             <p className="text-lg font-medium leading-relaxed">
               I&apos;m a 3rd-year B.Tech student (AI-ML) at the University School of Automation and
               Robotics, GGSIPU. I like turning emerging AI tech into practical, reliable systems:
@@ -34,14 +37,14 @@ export default function About() {
               Driven by curiosity and a builder mindset. I care about architecture, observability
               and failure modes, not just demos.
             </p>
-            <div className="mt-8 grid grid-cols-3 gap-4">
+            <div className="mt-8 grid grid-cols-3 gap-3 sm:gap-4">
               {stats.map((s, i) => (
                 <motion.div
                   key={s.l}
                   whileHover={{ y: -6, rotate: i % 2 ? 3 : -3 }}
-                  className="border-[3px] border-ink bg-yellow p-4 text-center shadow-[4px_4px_0_#111]"
+                  className="border-[3px] border-ink bg-yellow p-3 text-center shadow-[4px_4px_0_#111] sm:p-4"
                 >
-                  <div className="text-3xl font-bold">{s.v}</div>
+                  <div className="text-2xl font-bold sm:text-3xl">{s.v}</div>
                   <div className="font-mono text-xs uppercase">{s.l}</div>
                 </motion.div>
               ))}
@@ -51,7 +54,7 @@ export default function About() {
 
         <Reveal delay={0.15} className="grid place-items-center">
           <motion.div
-            drag
+            drag={canDrag}
             dragSnapToOrigin
             whileHover={{ rotate: 0, scale: 1.05 }}
             whileDrag={{ scale: 1.1 }}
@@ -64,7 +67,7 @@ export default function About() {
             <p className="font-hand text-4xl leading-tight">
               any stack · any problem · ship it ✦
             </p>
-            <p className="font-mono mt-4 text-xs">(psst, you can drag me)</p>
+            <p className="font-mono mt-4 text-xs">(psst, you can drag me on desktop)</p>
           </motion.div>
         </Reveal>
       </div>

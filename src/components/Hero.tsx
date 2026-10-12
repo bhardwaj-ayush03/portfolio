@@ -3,6 +3,8 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, Download, Sparkles } from "lucide-react";
 import { site } from "@/data/site";
+import { useCanDrag } from "@/lib/useCanDrag";
+import { goTo } from "@/lib/scrollTo";
 
 const tiles = [
   { ch: "s", bg: "bg-pink", r: -6 },
@@ -18,14 +20,16 @@ const marquee = ["GENERATIVE AI", "LLM AGENTS", "RAG", "MCP", "LANGGRAPH", "MLOP
 
 function Polaroid() {
   const [ok, setOk] = useState(true);
+  const canDrag = useCanDrag();
+
   return (
     <motion.div
       animate={{ y: [0, -12, 0] }}
       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-      className="relative mx-auto w-72 sm:w-80"
+      className="relative mx-auto w-64 sm:w-80"
     >
       <motion.div
-        drag
+        drag={canDrag}
         dragSnapToOrigin
         initial={{ rotate: 4, opacity: 0, y: 60 }}
         animate={{ rotate: 4, opacity: 1, y: 0 }}
@@ -53,12 +57,13 @@ function Polaroid() {
 
       <motion.a
         href="#contact"
+        onClick={(e) => goTo(e, "#contact")}
         initial={{ scale: 0, rotate: -30 }}
         animate={{ scale: 1, rotate: 8 }}
         transition={{ delay: 0.8, type: "spring" }}
         whileHover={{ scale: 1.1, rotate: -4 }}
         whileTap={{ scale: 0.9 }}
-        className="nb-card font-mono absolute -right-4 top-10 bg-green px-4 py-2 text-sm font-bold"
+        className="nb-card font-mono absolute right-0 top-10 bg-green px-4 py-2 text-sm font-bold sm:-right-4"
         style={{ borderRadius: 10, boxShadow: "4px 4px 0 #111" }}
       >
         SAY HI 👋
@@ -67,7 +72,7 @@ function Polaroid() {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        className="absolute -left-6 bottom-20 grid h-16 w-16 place-items-center rounded-full border-[3px] border-ink bg-lilac shadow-[4px_4px_0_#111]"
+        className="absolute bottom-20 left-0 grid h-16 w-16 place-items-center rounded-full border-[3px] border-ink bg-lilac shadow-[4px_4px_0_#111] sm:-left-6"
       >
         <Sparkles />
       </motion.div>
@@ -88,7 +93,7 @@ export default function Hero() {
             hey, I&apos;m Ayush 👋
           </motion.p>
 
-          <h1 className="mt-2 text-6xl font-bold leading-[0.95] tracking-tight sm:text-7xl">
+          <h1 className="mt-2 text-5xl font-bold leading-[0.95] tracking-tight sm:text-7xl">
             I build AI
             <br />
             that actually
@@ -108,7 +113,7 @@ export default function Hero() {
                   }}
                   whileHover={{ y: -12, rotate: t.r * -2, scale: 1.15 }}
                   transition={{ type: "spring", stiffness: 300, damping: 12 }}
-                  className={`${t.bg} font-serif -mx-0.5 inline-block cursor-default border-[3px] border-ink px-3 italic shadow-[4px_4px_0_#111]`}
+                  className={`${t.bg} font-serif -mx-0.5 inline-block cursor-default border-[3px] border-ink px-2 italic shadow-[4px_4px_0_#111] sm:px-3`}
                 >
                   {t.ch}
                 </motion.span>
@@ -137,7 +142,7 @@ export default function Hero() {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#projects" className="nb-btn">
+            <a href="#projects" onClick={(e) => goTo(e, "#projects")} className="nb-btn">
               See my work
               <span className="grid h-7 w-7 place-items-center rounded-full bg-ink text-paper">
                 <ArrowRight size={16} />
